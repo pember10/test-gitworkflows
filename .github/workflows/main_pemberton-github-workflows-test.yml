@@ -7,10 +7,15 @@ on:
   push:
     branches:
       - main
+  pull_request:
+    types: [opened, synchronize, reopened, closed]
+    branches:
+      - main
   workflow_dispatch:
 
 jobs:
   build:
+    name: Build
     runs-on: windows-latest
 
     steps:
@@ -20,6 +25,7 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: '18.x'
+          cache: 'npm'
 
       - name: npm install, build, and test
         run: |
